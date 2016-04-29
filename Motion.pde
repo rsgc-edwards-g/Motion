@@ -1,18 +1,9 @@
 // Global variables
-int numBalls = 5000;
-Bouncer ball[] = new Bouncer[numBalls];
-
 
 // Runs once
 void setup() {
   size(640, 360);
   background(255);
-  
-  // Create an instance of the Bouncer class
-  for (int i = 0; i < ball.length; i++){
-   ball[i] = new Bouncer(); 
-  }
- 
 
 }
 
@@ -22,16 +13,15 @@ void draw() {
   // Clear the background
   background(255);
   
-  // Move, check for edges (bounce if needed) then display
-  for (int j = 0; j < numBalls; j++){
-    ball[j].update();
-    ball[j].checkEdges();
-    ball[j].display();
-    
-    for (int a = 0; a < numBalls; a++){
-     if (a != j) {
-      ball[j].checkCollision(ball[a]); 
-     }
-    }
-  }
+  RVector mouse = new RVector( mouseX, mouseY);
+  RVector center = new RVector( width / 2, height / 2);
+  
+  // use vector subtraction to determine the length of the line
+  mouse.sub(center);
+  
+  // move the origin in the center of the screen
+  translate(width/2, height/2);
+  
+  // draw the line from the origin 
+  line(0, 0, mouse.x, mouse.y);
 }
