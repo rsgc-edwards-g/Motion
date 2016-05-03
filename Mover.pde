@@ -16,9 +16,16 @@ class Mover {
 
   // update position
   void update() {
+    // Determine the direction vector that points to the mouse from our current location
+    RVector mouse = new RVector(mouseX, mouseY);
+    RVector direction = RVector.sub(mouse, location);
+    
+    // Don't jump to the mouse
+    direction.normalize();
+    direction.div(4);
+    acceleration = direction;
+    
     // Change velocity first
-    acceleration = RVector.random2D();
-    acceleration.mult(2);
     velocity.add(acceleration);
     velocity.limit(10);
     // Move the ball according to it's velocity and acceleration
