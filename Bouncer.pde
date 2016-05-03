@@ -6,7 +6,7 @@ class Bouncer {
 
   // constructor
   Bouncer() {
-    
+
     radius = 10;
     location = new RVector(random(width), random(height));
     velocity = new RVector(1, 3.3);
@@ -39,7 +39,7 @@ class Bouncer {
       velocity.y = velocity.y * -1;
     }
   }
-  
+
   // check for collision
   void checkCollision(Bouncer b) {
     // get the vertical length of the triangle
@@ -49,15 +49,23 @@ class Bouncer {
     // get the hypotenuse
     float hypotenuse = sqrt(pow(vertical, 2) + pow(horizontal, 2));
     // check for collision
-    if (hypotenuse <= radius + b.radius){
+    if (hypotenuse <= radius + b.radius) {
       // ball 1
       velocity.x = velocity.x * -1;
       velocity.y = velocity.y * -1;
-      
+
       // ball 2
       b.velocity.x = b.velocity.x * -1;
       b.velocity.y = b.velocity.y * -1;
     }
+  }
+
+  void vCheckCollision(Bouncer b) {
+    RVector hyp = RVector.sub(location, b.location);
     
+    if (hyp.mag() <= radius + b.radius) {
+     velocity.mult(-1);
+     b.velocity.mult(-1);
+    }
   }
 }
